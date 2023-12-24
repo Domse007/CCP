@@ -24,7 +24,6 @@ use std::env;
 use std::io::stderr;
 
 lazy_static! {
-    // pub static ref ROOT: String = std::env::var("CCP_ROOT").unwrap_or("/temp".to_string());
     pub static ref DATABASE: Database = Database::new().unwrap();
     pub static ref CONFIG: Config = ConfigBuilder::new()
         .config_path(&(env::var("HOME").unwrap_or("/temp/".to_string()) + "ccp.toml"))
