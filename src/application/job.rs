@@ -4,7 +4,7 @@ use anyhow::{anyhow, Result};
 use chrono::{Local, NaiveDate};
 use uuid::Uuid;
 
-use crate::{application::tag::Tag, store::Entity, DATABASE, ROOT};
+use crate::{application::tag::Tag, store::Entity, DATABASE, CONFIG};
 use serde::{Deserialize, Serialize};
 
 use super::{id::Id, timestamp::Timestamp, Entry};
@@ -40,7 +40,7 @@ impl Default for Job {
     fn default() -> Self {
         Self {
             uid: Uuid::new_v4().to_string(),
-            file: format!("{}/ingest/test.mp4", ROOT.as_str()),
+            file: format!("{}/ingest/test.mp4", CONFIG.ccp_root()),
             start: Timestamp::from_str("00:01:00").unwrap(),
             end: Timestamp::from_str("00:01:45").unwrap(),
             date: Local::now().date_naive(),

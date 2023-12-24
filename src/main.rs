@@ -4,6 +4,7 @@ use anyhow::Result;
 use store::Database;
 
 mod application;
+mod config;
 mod handler;
 mod interface;
 mod store;
@@ -11,6 +12,7 @@ mod terminal;
 mod update;
 mod util;
 
+use crate::config::{Config, ConfigBuilder};
 use crate::handler::Event;
 
 use application::App;
@@ -18,11 +20,16 @@ use application::App;
 use lazy_static::lazy_static;
 use polodb_core::bson::doc;
 use ratatui::prelude::{CrosstermBackend, Terminal};
+use std::env;
 use std::io::stderr;
 
 lazy_static! {
-    pub static ref ROOT: String = std::env::var("CCP_ROOT").unwrap_or("/temp".to_string());
+    // pub static ref ROOT: String = std::env::var("CCP_ROOT").unwrap_or("/temp".to_string());
     pub static ref DATABASE: Database = Database::new().unwrap();
+    pub static ref CONFIG: Config = ConfigBuilder::new()
+        .config_path(&(env::var("HOME").unwrap_or("/temp/".to_string()) + "ccp.toml"))
+        .ccp_root(env::var("CCP_ROOT").unwrap_or("/temp".to_string()).as_str())
+        .build();
 }
 
 fn main() -> Result<()> {

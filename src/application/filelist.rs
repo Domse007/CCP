@@ -1,12 +1,12 @@
 //! # Populate the list of files in the ingest folder
 
-use crate::ROOT;
+use crate::CONFIG;
 
 use super::Metadata;
 use std::fs;
 
 pub fn load() -> Vec<(String, Option<Metadata>)> {
-    let path = format!("{}/ingest/", ROOT.as_str());
+    let path = format!("{}/ingest/", CONFIG.ccp_root());
     let mut items = Vec::new();
     if let Ok(itr) = fs::read_dir(path.clone()) {
         for entry in itr.into_iter() {

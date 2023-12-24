@@ -1,6 +1,6 @@
 //! Utility functions
 
-use crate::ROOT;
+use crate::CONFIG;
 
 use anyhow::Result;
 use crossterm::event::{DisableMouseCapture, EnableMouseCapture};
@@ -16,13 +16,13 @@ use std::fs;
 use std::io::stdout;
 
 pub fn ensure_configured() -> Result<()> {
-    let path1 = format!("{}/store/", ROOT.as_str());
-    let path2 = format!("{}/ingest/", ROOT.as_str());
-    let path3 = format!("{}/data/", ROOT.as_str());
-    let path4 = format!("{}/meta/", ROOT.as_str());
-    let path5 = format!("{}/temp/", ROOT.as_str());
-    let path6 = format!("{}/source/", ROOT.as_str());
-    let path7 = format!("{}/subs/", ROOT.as_str());
+    let path1 = format!("{}/store/", CONFIG.ccp_root());
+    let path2 = format!("{}/ingest/", CONFIG.ccp_root());
+    let path3 = format!("{}/data/", CONFIG.ccp_root());
+    let path4 = format!("{}/meta/", CONFIG.ccp_root());
+    let path5 = format!("{}/temp/", CONFIG.ccp_root());
+    let path6 = format!("{}/source/", CONFIG.ccp_root());
+    let path7 = format!("{}/subs/", CONFIG.ccp_root());
 
     let _ = fs::create_dir_all(path1);
     let _ = fs::create_dir_all(path2);

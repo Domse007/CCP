@@ -14,7 +14,7 @@ use tantivy::{
     DateOptions, DateTimePrecision, Document, Index, IndexReader, IndexWriter, ReloadPolicy,
 };
 
-use crate::ROOT;
+use crate::CONFIG;
 
 pub struct Searcher {
     pub schema: Schema,
@@ -26,7 +26,7 @@ pub struct Searcher {
 impl Searcher {
     pub fn new() -> Result<Self> {
         let schema = Self::schema();
-        let path = format!("{}/store/search/", ROOT.as_str());
+        let path = format!("{}/store/search/", CONFIG.ccp_root());
         let _ = fs::create_dir_all(path.clone());
         let index = match Index::create_in_dir(path.clone(), schema.to_owned()) {
             Ok(i) => i,

@@ -3,8 +3,7 @@
 use anyhow::{anyhow, Result};
 use polodb_core::{bson::Document, ClientCursor, Database};
 use serde::de::DeserializeOwned;
-
-use crate::ROOT;
+use crate::CONFIG;
 
 use super::Entity;
 
@@ -14,7 +13,7 @@ pub struct DocStore {
 
 impl DocStore {
     pub fn new() -> Result<Self> {
-        let path = format!("{}/store/CCP.db", ROOT.as_str());
+        let path = format!("{}/store/CCP.db", CONFIG.ccp_root());
         Ok(Self {
             database: Database::open_file(path)?,
         })

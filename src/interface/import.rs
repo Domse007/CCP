@@ -6,7 +6,7 @@ use crate::application::{actions, job::Job, tag::Tag, Metadata};
 use crate::{
     interface::{Render, TextArea},
     update::control,
-    util, DATABASE, ROOT,
+    util, DATABASE, CONFIG,
 };
 
 use crossterm::event::{KeyCode, KeyEvent, KeyModifiers};
@@ -334,7 +334,7 @@ impl Import {
             match meta {
                 Some(m) => return Some(m.clone()),
                 None => {
-                    if let Ok(newmeta) = Metadata::new(format!("{}/ingest/{}", ROOT.as_str(), s)) {
+                    if let Ok(newmeta) = Metadata::new(format!("{}/ingest/{}", CONFIG.ccp_root(), s)) {
                         self.files.set_one((s, Some(newmeta.clone())));
                         return Some(newmeta);
                     }
@@ -347,7 +347,7 @@ impl Import {
     }
 
     fn get_path(&self) -> Option<String> {
-        let path = format!("{}/ingest/{}", ROOT.as_str(), self.get_title());
+        let path = format!("{}/ingest/{}", CONFIG.ccp_root(), self.get_title());
         if let Ok(_f) = File::open(path.clone()) {
             Some(path)
         } else {
